@@ -24,7 +24,7 @@ spec:
           valueFiles:
           - values.yaml
         repoURL: https://github.com/rodgh21/argo.git
-        targetRevision:  '{{values.revision}}'
+        targetRevision:  'master'
         path: ./
       destination:
         server: '{{server}}'
