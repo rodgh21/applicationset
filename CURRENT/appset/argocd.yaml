@@ -15,7 +15,7 @@ spec:
           revision: master
   template:
     metadata:
-      name: argo-appset
+      name: test
     spec:
       # project: '{{metadata.labels.stage}}'
       project: 'shr'
