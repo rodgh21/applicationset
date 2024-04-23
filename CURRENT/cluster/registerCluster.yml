@@ -22,11 +22,11 @@ stringData:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: clusterLocal
+  name: clusterlocal
   labels:
     argocd.argoproj.io/secret-type: cluster
-    cluster: clusterLocal
-    stage: clusterLocal
+    cluster: clusterlocal
+    stage: clusterlocal
   namespace: argo
 type: Opaque
 stringData:
