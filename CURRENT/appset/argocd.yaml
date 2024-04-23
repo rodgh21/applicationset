@@ -11,7 +11,7 @@ spec:
             - key: cluster
               operator: In
               values:
-              - shr
+              - in-cluster
         values:
           revision: master
   template:
