@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: dev-stg-prd-green-appset
+spec:
+  generators:
+    - matrix:
+        generators:
+          - git:
+              repoURL: https://itro.koreanair.com/git/scm/cnseks/argo.git
+              revision: master
+              directories:
+                - path: app/green/flt/*/*
+                - path: app/green/hrd/*/*
+                - path: app/green/com/*/*
+                - path: app/green/erp/*/*
+                - path: app/green/pss/*/*
+                - path: app/green/css/*/*
+                - path: app/green/etc/*/*
+          - clusters:
+              selector:
+                matchExpressions:
+                  - key: cluster
+                    operator: In
+                    values:
+                      - dev-green
+                      - stg-green
+                      - prd-green
+              values:
+                revision: master
+  template:
+    metadata:
+      name: "{{path[2]}}-{{metadata.labels.cluster}}-{{path.basename}}"
+    spec:
+      project: "{{metadata.labels.stage}}-green"
+      source:
+        helm:
+          valueFiles:
+            - values-{{metadata.labels.stage}}.yaml
+            - release-{{metadata.labels.stage}}.yaml
+        repoURL: https://itro.koreanair.com/git/scm/cnseks/argo.git
+        targetRevision: "{{values.revision}}"
+        path: "{{path}}"
+      destination:
+        server: "{{server}}"
+        namespace: "{{path[2]}}-{{metadata.labels.stage}}-{{path[3]}}"

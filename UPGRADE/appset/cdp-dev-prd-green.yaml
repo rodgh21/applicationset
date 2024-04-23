@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cdp-dev-prd-green-appset
+spec:
+  generators:
+    - matrix:
+        generators:
+          - git:
+              repoURL: https://itro.koreanair.com/git/scm/cnseks/argo-cns.git
+              revision: master
+              directories:
+                - path: app/green/cdp-dev-prd/*/*/*
+          - clusters:
+              selector:
+                matchExpressions:
+                  - key: cluster
+                    operator: In
+                    values:
+                      - cdp-dev-green
+                      - cdp-prd-green
+              values:
+                revision: master
+  template:
+    metadata:
+      name: "{{path[3]}}-{{metadata.labels.stage}}-{{path.basename}}"
+    spec:
+      project: "cdp-{{metadata.labels.stage}}-green"
+      source:
+        helm:
+          valueFiles:
+            - values-{{metadata.labels.stage}}.yaml
+            - release-{{metadata.labels.stage}}.yaml
+        repoURL: https://itro.koreanair.com/git/scm/cnseks/argo-cns.git
+        targetRevision: "{{values.revision}}"
+        path: "{{path}}"
+      destination:
+        server: "{{server}}"
+        namespace: "{{path[3]}}-{{metadata.labels.stage}}-{{path[4]}}"

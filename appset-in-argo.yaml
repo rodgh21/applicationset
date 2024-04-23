@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: current-appset
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/rodgh21/applicationset.git
+      revision: master
+      directories:
+      - path: CURRENT/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: appset
+      source:
+        repoURL: https://github.com/rodgh21/applicationset.git
+        targetRevision: master
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argo
+# TODO
+# UPGRADE CLUSTER는 추후 구성
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: ApplicationSet
+# metadata:
+#   name: upgrade-appset
+# spec:
+#   generators:
+#   - git:
+#       repoURL: https://itro.koreanair.com/git/scm/srcaicc/argo-applicationset.git
+#       revision: master
+#       directories:
+#       - path: UPGRADE/*
+#   template:
+#     metadata:
+#       name: 'upgrade-{{path.basename}}'
+#     spec:
+#       project: appset
+#       source:
+#         repoURL: https://itro.koreanair.com/git/scm/srcaicc/argo-applicationset.git
+#         targetRevision: master
+#         path: '{{path}}'
+#       destination:
+#         server: https://kubernetes.default.svc
+#         namespace: argo

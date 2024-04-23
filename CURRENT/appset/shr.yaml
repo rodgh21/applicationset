@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: shr-appset
+spec:
+  generators:
+    - matrix:
+        generators:
+          - git:
+              repoURL: https://github.com/rodgh21/argo-deploy.git
+              revision: master
+              directories:
+                - path: app/dev-prd/com/*/*
+          - clusters:
+              selector:
+                matchExpressions:
+                  - key: cluster
+                    operator: In
+                    values:
+                    - shr
+              values:
+                revision: master
+  template:
+    metadata:
+      name: '{{path[2]}}-{{metadata.labels.stage}}-{{path.basename}}'
+    spec:
+      project: '{{metadata.labels.stage}}'
+      source:
+        helm:
+          valueFiles:
+          - values-{{metadata.labels.stage}}.yaml
+          - release-{{metadata.labels.stage}}.yaml
+        repoURL: https://github.com/rodgh21/argo-deploy.git
+        targetRevision:  '{{values.revision}}'
+        path: '{{path}}'
+      destination:
+        server: '{{server}}'
+        namespace: 'argo'
