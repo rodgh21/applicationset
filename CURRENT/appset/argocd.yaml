@@ -14,8 +14,8 @@ spec:
         values:
           revision: master
   template:
-    metadata:
-      name: test
+    # metadata:
+    #   name: test
     spec:
       # project: '{{metadata.labels.stage}}'
       project: 'shr'
