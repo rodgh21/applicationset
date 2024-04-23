@@ -10,7 +10,7 @@ spec:
             - key: cluster
               operator: In
               values:
-              - local
+              - clusterlocal
         values:
           revision: master
   template:
@@ -28,4 +28,4 @@ spec:
         path: ./
       destination:
         server: 'https://kubernetes.default.svc'
-        namespace: 'argocd'
+        namespace: 'argo'
