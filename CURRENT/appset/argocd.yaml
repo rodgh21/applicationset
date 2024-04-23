@@ -15,7 +15,7 @@ spec:
           revision: master
   template:
     metadata:
-      name: 'argo-cd'
+      name: 'argocd'
     spec:
       # project: '{{metadata.labels.stage}}'
       project: 'shr'
