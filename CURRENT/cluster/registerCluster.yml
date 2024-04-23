@@ -6,7 +6,7 @@ metadata:
     argocd.argoproj.io/secret-type: cluster
     cluster: local
     stage: local
-  namespace: argo
+  namespace: argocd
 type: Opaque
 stringData:
   name: in-cluster-local
