@@ -11,7 +11,7 @@ spec:
             - key: cluster
               operator: In
               values:
-              - in-cluster
+              - local
         values:
           revision: master
   template:
