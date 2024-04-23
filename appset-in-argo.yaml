@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: current-appset
+  namespace: argocd
 spec:
   generators:
   - git:
@@ -20,7 +21,7 @@ spec:
         path: '{{path}}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: argo
+        namespace: argocd
 # TODO
 # UPGRADE CLUSTER는 추후 구성
 # ---
