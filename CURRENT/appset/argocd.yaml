@@ -10,7 +10,7 @@ spec:
             - key: cluster
               operator: In
               values:
-              - local
+              - clusterlocal
         values:
           revision: master
   template:
