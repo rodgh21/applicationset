@@ -17,7 +17,8 @@ spec:
     metadata:
       name: 'argo-cd'
     spec:
-      project: '{{metadata.labels.stage}}'
+      # project: '{{metadata.labels.stage}}'
+      project: 'shr'
       source:
         helm:
           valueFiles:
