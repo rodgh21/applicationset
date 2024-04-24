@@ -20,11 +20,11 @@ spec:
       # project: '{{metadata.labels.stage}}'
       project: 'shr'
       source:
-        # helm:
-        #   valueFiles:
-        #   - values.yaml
+        helm:
+          valueFiles:
+          - values.yaml
         repoURL: https://github.com/rodgh21/argo.git
-        targetRevision:  'master'
+        targetRevision: 'master'
         path: ./
       destination:
         server: 'https://kubernetes.default.svc'
