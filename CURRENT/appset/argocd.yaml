@@ -9,7 +9,7 @@ spec:
         revision: master
         directories:
         - path: ./
-        
+
   template:
     metadata:
       name: 'argo-cd'
@@ -17,9 +17,6 @@ spec:
       # project: '{{metadata.labels.stage}}'
       project: 'shr'
       source:
-        helm:
-          valueFiles:
-          - values.yaml
         repoURL: https://github.com/rodgh21/argo.git
         targetRevision: master
         path: ./
