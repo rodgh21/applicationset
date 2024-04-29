@@ -9,15 +9,7 @@ spec:
         revision: master
         directories:
         - path: ./
-    - clusters:
-        selector:
-          matchExpressions:
-            - key: cluster
-              operator: In
-              values:
-              - in-cluster
-        values:
-          revision: master
+        
   template:
     metadata:
       name: 'argo-cd'
