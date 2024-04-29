@@ -4,25 +4,27 @@ metadata:
   name: argo-appset
 spec:
   generators:
-    - git:
-        repoURL: https://github.com/rodgh21/argo.git
-        revision: master
-        directories:
-        - path: "*"
-
+    - clusters:
+        selector:
+          matchExpressions:
+            - key: cluster
+              operator: In
+              values:
+              - in-cluster
+        values:
+          revision: master
   template:
     metadata:
       name: 'argo-cd'
     spec:
-      # project: '{{metadata.labels.stage}}'
       project: 'shr'
       source:
         helm:
           valueFiles:
           - values.yaml
         repoURL: https://github.com/rodgh21/argo.git
-        targetRevision: master
-        path: '{{path}}'
+        targetRevision:  'master'
+        path: '*'
       destination:
         server: 'https://kubernetes.default.svc'
-        namespace: 'argocd'
+        namespace: 'argo'
