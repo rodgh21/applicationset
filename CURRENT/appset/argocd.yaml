@@ -10,21 +10,21 @@ spec:
             - key: cluster
               operator: In
               values:
-              - in-cluster
+              - shr
         values:
           revision: master
   template:
     metadata:
       name: 'argo-cd'
     spec:
-      project: 'shr'
+      project: '{{metadata.labels.stage}}'
       source:
         helm:
           valueFiles:
           - values.yaml
         repoURL: https://github.com/rodgh21/argo.git
-        targetRevision:  'master'
-        path: '*'
+        targetRevision:  '{{values.revision}}'
+        path: ./
       destination:
         server: 'https://kubernetes.default.svc'
-        namespace: 'argo'
+        namespace: 'argocd'
