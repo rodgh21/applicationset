@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: argorollout-appset
+spec:
+  generators:
+    - clusters:
+        selector:
+          matchExpressions:
+            - key: cluster
+              operator: In
+              values:
+              - shr
+        values:
+          revision: master
+  template:
+    metadata:
+      name: 'argorollout'
+    spec:
+      project: '{{metadata.labels.stage}}'
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+        repoURL: https://github.com/rodgh21/argorollout.git
+        targetRevision:  '{{values.revision}}'
+        path: ./
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: 'argocd'
