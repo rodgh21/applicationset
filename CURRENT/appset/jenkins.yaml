@@ -29,4 +29,4 @@ spec:
         path: ./
       destination:
         server: "{{server}}"
-        namespace: "jenkins"
+        namespace: "jenkinsrudgh21"
