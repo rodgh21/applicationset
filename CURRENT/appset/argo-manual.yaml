@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: argo-manual-appset
+spec:
+  generators:
+    - clusters:
+        selector:
+          matchExpressions:
+            - key: cluster
+              operator: In
+              values:
+              - shr
+        values:
+          revision: master
+  template:
+    metadata:
+      name: 'argo-manual'
+    spec:
+      project: '{{metadata.labels.stage}}'
+      source:
+        repoURL: https://github.com/rodgh21/argo-manual.git
+        targetRevision:  '{{values.revision}}'
+        path: ./
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: 'argocd'
