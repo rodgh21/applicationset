@@ -24,7 +24,7 @@ spec:
         helm:
           valueFiles:
           - values.yaml
-        repoURL: https://github.com/rodgh21/argorollout.git
+        repoURL: https://github.com/rodgh21/jenkins-helm.git
         targetRevision: "{{values.revision}}"
         path: ./
       destination:
