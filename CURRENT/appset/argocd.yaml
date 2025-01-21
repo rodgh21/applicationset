@@ -17,13 +17,13 @@ spec:
     metadata:
       name: 'argocd'
     spec:
-      project: 'shr'
+      project: '{{metadata.labels.stage}}'
       source:
         helm:
           valueFiles:
           - values.yaml
         repoURL: https://github.com/rodgh21/argo.git
-        targetRevision:  'master'
+        targetRevision:  '{{values.revision}}'
         path: ./
       destination:
         server: 'https://kubernetes.default.svc'
