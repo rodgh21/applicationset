@@ -15,7 +15,7 @@ spec:
           revision: master
   template:
     metadata:
-      name: jenkins
+      name: jenkinsrudgh21
     spec:
       syncPolicy:
         automated: {}
@@ -29,4 +29,4 @@ spec:
         path: ./
       destination:
         server: "{{server}}"
-        namespace: jenkins
+        namespace: jenkinsrudgh21
