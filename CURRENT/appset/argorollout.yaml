@@ -15,7 +15,7 @@ spec:
           revision: master
   template:
     metadata:
-      name: 'argo-rollouts'
+      name: argo-rollouts
     spec:
       project: '{{metadata.labels.stage}}'
       source:
@@ -27,4 +27,4 @@ spec:
         path: ./
       destination:
         server: 'https://kubernetes.default.svc'
-        namespace: 'argo-rollouts'
+        namespace: argo-rollouts
