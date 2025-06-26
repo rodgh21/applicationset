@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: jenkinsrudgh21-appset
+  name: jenkins-appset
 spec:
   generators:
     - clusters:
@@ -15,7 +15,7 @@ spec:
           revision: master
   template:
     metadata:
-      name: jenkinsrudgh21
+      name: jenkins
     spec:
       syncPolicy:
         automated: {}
@@ -29,4 +29,4 @@ spec:
         path: ./
       destination:
         server: "{{server}}"
-        namespace: jenkinsrudgh21
+        namespace: jenkins
